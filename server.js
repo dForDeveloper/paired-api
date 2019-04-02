@@ -1,9 +1,4 @@
-const express = require('express');
-const cors = require('cors');
-
-const app = express();
-
-app.use(cors());
+const app = require('./app');
 
 app.set('PORT', process.env.PORT || 3001);
 
@@ -11,6 +6,20 @@ app.listen(app.get('PORT'), () => {
   console.log(`Server running on ${app.get('PORT')}.`);
 });
 
-app.get('/', (req, res) => {
-  res.send('The server is running');
+
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var blogSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
 });
