@@ -2,7 +2,6 @@ const { User, Pairing, Date } = require('../schema');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
 
-
 const users = [
   new User({
     name: 'Jeo',
@@ -73,31 +72,47 @@ const dates = [
   })
 ];
 
+const userIds = [];
+
+Promise.all(users.map(async user => {
+  const newUser = await user.save()
+  userIds.push(newUser._id)
+  return newUser;
+}))
+.then(() => {
+  console.log(userIds);
+  mongoose.disconnect()
+})
+.catch((error) => console.log(error));
+
+const dateIds = [];
+
+Promise.all(dates.map(async date => {
+  const newDate = await date.save()
+  dateIds.push(newDate._id)
+  return newDate;
+}))
+.then(() => mongoose.disconnect())
+.catch((error) => console.log(error));
+
 const pairings = [
   new Pairing({
+    pairedUserID: userIds[0],
+    dateID: dateIds[0],
     timeslot: 'morning',
-    role: 'mentor'
+    role: 'pairer'
+
   }),
   new Pairing({
+    pairedUserID: userIds[1],
+    dateID: dateIds[1],
     timeslot: 'afternoon',
-    role: 'mentee'
+    role: 'pairee'
   })
 ];
 
-Promise.all(users.map(user => {
-  return user.save()
-}))
-.then(() => mongoose.disconnect())
-.catch((error) => console.log(error));
-
-Promise.all(dates.map(date => {
-  return date.save()
-}))
-.then(() => mongoose.disconnect())
-.catch((error) => console.log(error));
-
-Promise.all(pairings.map(paring => {
-  return paring.save()
-}))
-.then(() => mongoose.disconnect())
-.catch((error) => console.log(error));
+// Promise.all(pairings.map(pairing => {
+//   return paring.save()
+// }))
+// .then(() => mongoose.disconnect())
+// .catch((error) => console.log(error));
