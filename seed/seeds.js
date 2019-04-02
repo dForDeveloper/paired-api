@@ -2,6 +2,7 @@ const { User, Pairing, Date } = require('../schema');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
 
+
 const users = [
   new User({
     name: 'Jeo',
@@ -51,10 +52,52 @@ const users = [
     image: 'http://www.image.com/hill.jpeg',
     pairings: []
   })
-]
+];
+
+const dates = [
+  new Date({
+    date: 'Tues 9th',
+    timeslots: {
+      morning: [],
+      lunch: [],
+      afternoon: []
+      }
+  }),
+  new Date({
+    date: 'Thurs 11th',
+    timeslots: {
+      morning: [],
+      lunch: [],
+      afternoon: []
+      }
+  })
+];
+
+const pairings = [
+  new Pairing({
+    timeslot: 'morning',
+    role: 'mentor'
+  }),
+  new Pairing({
+    timeslot: 'afternoon',
+    role: 'mentee'
+  })
+];
 
 Promise.all(users.map(user => {
   return user.save()
 }))
-  .then(() => mongoose.disconnect())
-  .catch((error) => console.log(error));
+.then(() => mongoose.disconnect())
+.catch((error) => console.log(error));
+
+Promise.all(dates.map(date => {
+  return date.save()
+}))
+.then(() => mongoose.disconnect())
+.catch((error) => console.log(error));
+
+Promise.all(pairings.map(paring => {
+  return paring.save()
+}))
+.then(() => mongoose.disconnect())
+.catch((error) => console.log(error));
