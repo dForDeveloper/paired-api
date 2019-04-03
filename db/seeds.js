@@ -1,4 +1,4 @@
-const { User, Pairing } = require('../db/schema');
+const { User, Pairing } = require('./schema');
 const mongoose = require('mongoose');
 
 (async () => {
