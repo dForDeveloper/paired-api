@@ -1,11 +1,10 @@
 const { User, Pairing } = require('./schema');
 const mongoose = require('mongoose');
 
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/paired';
+
 (async () => {
-  await mongoose.connect(
-    'mongodb://localhost:27017/paired',
-    { useNewUrlParser: true }
-  );
+  await mongoose.connect(mongoURI, { useNewUrlParser: true });
 
   const users = await User.create(
     [
