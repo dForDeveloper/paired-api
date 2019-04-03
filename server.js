@@ -5,7 +5,9 @@ const typeDefs = require('./apollo/schema');
 const resolvers = require('./apollo/resolvers');
 const cors = require('cors');
 
-mongoose.connect('mongodb://localhost:27017/paired', { useNewUrlParser: true })
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/paired'
+
+mongoose.connect(mongoURI, { useNewUrlParser: true })
 mongoose.connection.once('open', () => console.log('MongoDB connected.'));
 
 const app = express();
