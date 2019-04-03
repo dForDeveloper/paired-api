@@ -27,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Pairing {
-    pairerID: ID!
+    pairerID: User
     paireeID: ID
     date: String!
     time: String!
@@ -41,9 +41,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUser: User
+    getUser(name: String): User
     getUsers: [User]
-    getPairing: Pairing
+    getPairings: [Pairing]
+    getAvailablePairings: [Pairing]
   }
 
   type Mutation {
