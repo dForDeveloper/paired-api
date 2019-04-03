@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- node
+services:
+- mongodb
+before_script:
+- npm run seed
+deploy:
+  provider: heroku
+  api_key:
+    secure: f9tJmOLNKyWhbN5Ge6PHNzu+5ZzuPE1vyPuHp+9UFdN7XUo8B3ZXHtKPPdoBIUczFIYToioFWXQvWRJuPy/edeYQ4xfEOYNWiBInJzr7BDfxSgfUobsYOqiM1xQoMxefYQZ954PTBhUrrNNnPHigtTihjpvOuANQ3zS1QMOxQivmdVLrlkcdY744hGXNNyNqsiEqvy0wN/vRnqIFfzXjAD/5EFePpys+w/LK5JIotD52DZM6gRJPWm2hTvV+XOUhxuRQjMtRzMDU2OpO4GXdJ/eL8aFROnGQeQA6GMxsXmQSLqV1uy18P17CgNRIUf4YxILqikdovu9McSO3IJTIOPnlpv+QK5s8IYAXQDHZ17OcAwDs/rm5xfnhr1etqB3hJNKGKc/I5sgRDwftDpn+AZU5Q8XlC9pg1lzn+KNBzNS7uJssdUR3ljv2zDx3vY2BiGyULUiNAxqatbAtFnRK/EsRsTekAZiHPq6Uzw6htlh6IPcoBd8QAPxOj/Ws3BMn0TX4ygyrqIAwSj2OqPVeT3aeVa/9EuHjX4cwusCDVRDcR6VkGBO7AOUcVtV9ovTV41URQx+MrvgfEvgjswYpBGuY8nqTvL0wyDo8aZaiWq/ChNSaBDG8QYyT8Gcq/rxXBHw54Q2ISSU2+aVT0AsXnL3QF0CmV/LrmEK5VdSyRvo=
+  app: paired-api
