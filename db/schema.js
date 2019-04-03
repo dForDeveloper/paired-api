@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   program: {
-    type:String,
+    type: String,
     required: true
   },
   skills: [String],

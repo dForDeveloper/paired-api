@@ -18,8 +18,7 @@ const mongoose = require('mongoose');
         interests: ['magic the gathering'],
         slack: '@jeo',
         email: 'jeo@gmail.com',
-        image: 'http://www.image.com/jeo.jpeg',
-        pairings: []
+        image: 'http://www.image.com/jeo.jpeg'
       },
       {
         name: 'Aaron',
@@ -30,8 +29,7 @@ const mongoose = require('mongoose');
         interests: ['art'],
         slack: '@aaron',
         email: 'aaron@gmail.com',
-        image: 'http://www.image.com/aaron.jpeg',
-        pairings: []
+        image: 'http://www.image.com/aaron.jpeg'
       },
       {
         name: 'Tiffany',
@@ -42,8 +40,7 @@ const mongoose = require('mongoose');
         interests: ['baking'],
         slack: '@tiffany',
         email: 'tiff@gmail.com',
-        image: 'http://www.image.com/tiffany.jpeg',
-        pairings: []
+        image: 'http://www.image.com/tiffany.jpeg'
       },
       {
         name: 'Hillary',
@@ -54,8 +51,7 @@ const mongoose = require('mongoose');
         interests: ['super market sweep'],
         slack: '@hillstew',
         email: 'hill@gmail.com',
-        image: 'http://www.image.com/hill.jpeg',
-        pairings: []
+        image: 'http://www.image.com/hill.jpeg'
       }
     ]
   );
