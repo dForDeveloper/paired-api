@@ -16,7 +16,13 @@ const resolvers = {
     getAvailablePairings: async () => {
       return await Pairing.find({ paireeID: null }).populate('user').exec();
     }
+  },
+  Mutation: {
+    createUser: async (_, args) => {
+      return await User.create(args)
+    }
   }
 }
+
 
 module.exports = resolvers;

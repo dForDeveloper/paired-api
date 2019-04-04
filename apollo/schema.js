@@ -48,7 +48,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(input: UserInput!): User!
+    createUser(name: String, module: Int, program: String): User!
     createPairing(input: PairingInput!): Pairing!
   }
 `;
