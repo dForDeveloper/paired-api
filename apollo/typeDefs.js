@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
-    _id: String!
+    id: ID!
     name: String!
     module: Int!
     program: String!
@@ -27,6 +27,7 @@ const typeDefs = gql`
   }
 
   type Pairing {
+    id: ID!
     pairer: User!
     pairee: User
     date: String!
@@ -40,11 +41,17 @@ const typeDefs = gql`
     time: String!
   }
 
+  input PairingFilter {
+    module: Int!
+    program: String!
+    date: String!
+  }
+
   type Query {
     getUser(name: String): User
     getUsers: [User]
     getPairings: [Pairing]
-    getAvailablePairings: [Pairing]
+    getAvailablePairings(filter: PairingFilter): [Pairing]
   }
 
   type Mutation {

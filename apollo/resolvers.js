@@ -9,10 +9,19 @@ const resolvers = {
       return await User.find({}).exec();
     },
     getPairings: async () => {
-      return await Pairing.find({}).exec();
+      return await Pairing.find({})
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     },
-    getAvailablePairings: async () => {
-      return await Pairing.find({ pairee: null }).populate('pairer').exec();
+    getAvailablePairings: async (_, { filter: { module, program, date } }) => {
+      const availablePairings = await Pairing.find({ pairee: null, date })
+        .populate('pairer')
+        .exec();
+      return availablePairings.filter(pairing => {
+        const { pairer } = pairing;
+        return pairer.module === module && pairer.program === program;
+      });
     }
   },
   Mutation: {
@@ -20,7 +29,12 @@ const resolvers = {
       return await User.create(user)
     },
     createPairing: async (_, { pairing }) => {
-      return await Pairing.create(pairing)
+      const newPairing = new Pairing(pairing);
+      await newPairing.save();
+      return await Pairing.findById(newPairing._id)
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     }
   }
 }
