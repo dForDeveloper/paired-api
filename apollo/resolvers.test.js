@@ -30,6 +30,12 @@ describe('resolvers', () => {
       const result = await resolvers.Query.getUsers();
       expect(result).toHaveLength(expected);
     });
+
+    it('should get an array of all pairings', async () => {
+      const expected = 6;
+      const result = await resolvers.Query.getPairings();
+      expect(result).toHaveLength(6);
+    });
   });
 
   describe('Mutation', () => {
