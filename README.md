@@ -17,3 +17,75 @@ Please See FE:
 * mongoose [https://mongoosejs.com/](https://mongoosejs.com/docs/)
 
 #### Single Endpoint
+* [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
+
+#### Queries
+
+- getUsers:
+```
+{
+	getUsers {
+		name
+		module
+		program
+		skills
+		interests
+		pronouns
+		slack
+		email
+		image
+	}
+}
+```
+![image](https://user-images.githubusercontent.com/40776966/55576363-62105500-56ce-11e9-8a52-5807b034df68.png)
+
+- getUser:
+```
+{
+  getUser(name: "Jeo") {
+    * implicitly return whatever fields you’d like to see
+  }
+}
+```
+
+- getPairings:
+```
+{
+	getParings {
+		pairerID
+		pairedID
+		date
+		time
+	}
+}
+```
+
+- getAvailablePairings:
+```
+{
+  getAvailablePairings {
+   	* implicitly return whatever fields you’d like to see
+	}
+}
+```
+
+
+#### Mutations
+
+- createUser:
+```
+mutation {
+  createUser(name: "Miles", module: 4, program: "FE") {
+	* implicitly return whatever fields you’d like to see
+	}
+}
+```
+
+- createPairing:
+```
+mutation {
+  createPairing(pairerID: 123lk, date: “Wed Apr 03 2019”, time: “morning”) {
+    	* implicitly return whatever fields you’d like to see
+	}
+}
+```
