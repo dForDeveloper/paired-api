@@ -76,6 +76,8 @@ Queries:
         		module
           }
         }
+ 
+![image](https://user-images.githubusercontent.com/40776966/55576363-62105500-56ce-11e9-8a52-5807b034df68.png)
         
         // example response
         {
@@ -107,7 +109,7 @@ Queries:
         
         // note:
         // the available fields for this query are the same for getUser
-
+        
 - getPairings - returns an array of all Pairing objects
 
         // example query
