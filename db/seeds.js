@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 
 const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/paired';
 
-(async () => {
-  await mongoose.connect(mongoURI, { useNewUrlParser: true });
+const seedDB = async (uri) => {
+  await mongoose.connect(uri, { useNewUrlParser: true });
+
+  await mongoose.connection.db.dropDatabase();
 
   const users = await User.create(
     [
@@ -95,6 +97,9 @@ const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/paired';
       },
     ]
   );
+};
 
-  mongoose.disconnect();
-})();
+seedDB(mongoURI);
+mongoose.disconnect();
+
+module.exports = seedDB;
