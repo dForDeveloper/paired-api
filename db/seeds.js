@@ -58,38 +58,38 @@ const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/paired';
   await Pairing.create(
     [
       {
-        pairerID: users[0]._id,
-        paireeID: null,
+        pairer: users[0]._id,
+        pairee: null,
         date: 'Wed Apr 03 2019',
         time: 'lunch'
       },
       {
-        pairerID: users[0]._id,
-        paireeID: null,
+        pairer: users[0]._id,
+        pairee: null,
         date: 'Thu Apr 04 2019',
         time: 'lunch'
       },
       {
-        pairerID: users[2]._id,
-        paireeID: users[0]._id,
+        pairer: users[2]._id,
+        pairee: users[0]._id,
         date: 'Wed Apr 03 2019',
         time: 'afternoon'
       },
       {
-        pairerID: users[1]._id,
-        paireeID: users[0]._id,
+        pairer: users[1]._id,
+        pairee: users[0]._id,
         date: 'Thu Apr 04 2019',
         time: 'morning'
       },
       {
-        pairerID: users[3]._id,
-        paireeID: null,
+        pairer: users[3]._id,
+        pairee: null,
         date: 'Wed Apr 03 2019',
         time: 'morning'
       },
       {
-        pairerID: users[3]._id,
-        paireeID: users[2]._id,
+        pairer: users[3]._id,
+        pairee: users[2]._id,
         date: 'Fri Apr 05 2019',
         time: 'morning'
       },
