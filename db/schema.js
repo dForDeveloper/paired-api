@@ -22,12 +22,12 @@ const userSchema = new mongoose.Schema({
 });
 
 const pairingSchema = new mongoose.Schema({
-  pairerID: {
+  pairer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true
   },
-  paireeID: {
+  pairee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },

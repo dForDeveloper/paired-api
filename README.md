@@ -17,75 +17,274 @@ Please See FE:
 * mongoose [https://mongoosejs.com/](https://mongoosejs.com/docs/)
 
 #### Single Endpoint
-* [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
+- [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
 
-#### Queries
+Queries:
 
-- getUsers:
-```
-{
-	getUsers {
-		name
-		module
-		program
-		skills
-		interests
-		pronouns
-		slack
-		email
-		image
-	}
-}
-```
+- getUser(name: String) - returns a User object
+
+        // example query
+        {
+          getUser(name: "John") {
+            name
+            program
+            module
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "getUser": {
+              "name": "John",
+              "program": "FE",
+              "module": 2
+            }
+          }
+        }
+        
+        // notes:
+        // available fields for this query are:
+        //   id, name, program, module, skills, interests, pronouns, slack, email, image
+        //
+        // the "getUser" property name inside "data" can be changed like so:
+        // {
+        //   whateverYouWant: getUser(name: "John") {
+        //     name
+        //     program
+        //     module
+        //   }
+        // }
+        // this returns:
+        // {
+        //   "data": {
+        //     "whateverYouWant": {
+        //       "name": "John",
+        //       "program": "FE",
+        //       "module": 2
+        //     }
+        //   }
+        // }
+
+- getUsers - returns an array of all User objects
+
+        // example query
+        {
+          getUsers {
+            name
+        		program
+        		module
+          }
+        }
+ 
 ![image](https://user-images.githubusercontent.com/40776966/55576363-62105500-56ce-11e9-8a52-5807b034df68.png)
+        
+        // example response
+        {
+          "data": {
+            "user": [
+              {
+                "name": "Jeo",
+                "program": "FE",
+                "module": 4
+              },
+              {
+                "name": "Tiffany",
+                "program": "FE",
+                "module": 4
+              },
+              {
+                "name": "Aaron",
+                "program": "BE",
+                "module": 4
+              },
+              {
+                "name": "Hillary",
+                "program": "FE",
+                "module": 4
+              }
+        		]
+        	}
+        }
+        
+        // note:
+        // the available fields for this query are the same for getUser
+        
+- getPairings - returns an array of all Pairing objects
 
-- getUser:
-```
-{
-  getUser(name: "Jeo") {
-    * implicitly return whatever fields you’d like to see
-  }
-}
-```
+        // example query
+        {
+          getPairings {
+            id
+            pairer {
+              name
+            }
+            pairee {
+              name
+            }
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "getPairings": [
+              {
+                "id": "5ca56d0d4a515ca7339852b3",
+                "pairer": {
+                  "name": "Jeo"
+                },
+                "pairee": null,
+                "date": "Wed Apr 03 2019",
+                "time": "lunch"
+              },
+              {
+                "id": "5ca56d0d4a515ca7339852b5",
+                "pairer": {
+                  "name": "Tiffany"
+                },
+                "pairee": {
+                  "name": "Jeo"
+                },
+                "date": "Wed Apr 03 2019",
+                "time": "afternoon"
+              },
+        			...
+        		]
+        	}
+        }
+        
+        // note:
+        // the available fields this query are:
+        //   id, pairer, pairee, date, time
+        // the available fields for pairer and pairee are the same as getUser
 
-- getPairings:
-```
-{
-	getParings {
-		pairerID
-		pairedID
-		date
-		time
-	}
-}
-```
+- getAvailablePairings(filter: Object) - returns an array of Pairing objects matching the filter
 
-- getAvailablePairings:
-```
-{
-  getAvailablePairings {
-   	* implicitly return whatever fields you’d like to see
-	}
-}
-```
+        // example query
+        {
+          getAvailablePairings(
+            filter: { program: "FE", module: 4, date: "Wed Apr 03 2019" }
+          ) {
+            pairer {
+              name
+              module
+              program
+            }
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "getAvailablePairings": [
+              {
+                "pairer": {
+                  "name": "Jeo",
+                  "module": 4,
+                  "program": "FE"
+                },
+                "date": "Wed Apr 03 2019",
+                "time": "lunch"
+              },
+              {
+                "pairer": {
+                  "name": "Hillary",
+                  "module": 4,
+                  "program": "FE"
+                },
+                "date": "Wed Apr 03 2019",
+                "time": "morning"
+              }
+            ]
+          }
+        }
+        
+        // note:
+        // the available fields for this query are the same as getPairings
 
+Mutations:
 
-#### Mutations
+- createUser(user: Object) - saves a user to the database and returns that User object
 
-- createUser:
-```
-mutation {
-  createUser(name: "Miles", module: 4, program: "FE") {
-	* implicitly return whatever fields you’d like to see
-	}
-}
-```
+        // example mutation
+        mutation {
+          createUser(user: { name: "John", module: 2, program: "FE" }) {
+            id
+            name
+            module
+            program
+            email
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "createUser": {
+        			"id": "5ca56e87f1f10fa7acbe9544"
+              "name": "John",
+              "module": 2,
+              "program": "FE",
+        			"email": null
+            }
+          }
+        }
+        
+        // note:
+        // the required arguments are name, module, and program
+        // the argument object can have any property a user normally has except for id
+        // this is because the id is assigned when the user is created
 
-- createPairing:
-```
-mutation {
-  createPairing(pairerID: 123lk, date: “Wed Apr 03 2019”, time: “morning”) {
-    	* implicitly return whatever fields you’d like to see
-	}
-}
-```
+- createPairing(pairing: Object) - saves a pairing to the database and returns that Pairing object
+
+        // example mutation
+        mutation {
+          createPairing(
+            pairing: {
+              pairer: "5ca56e87f1f10fa7acbe9544"
+              pairee: 5
+              date: "Fri Apr 05 2019"
+              time: "lunch"
+            }
+          ) {
+            pairer {
+              name
+              module
+            }
+            pairee {
+              name
+              module
+              program
+            }
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "createPairing": {
+              "pairer": {
+                "name": "John",
+                "module": 2
+              },
+              "pairee": {
+                "name": "Alice",
+                "module": 1,
+                "program": "BE"
+              },
+              "date": "Fri Apr 05 2019",
+              "time": "lunch"
+            }
+          }
+        }
+        
+        // note:
+        // the required arguments are pairer, date, and time
+        // the pairer and pairee arguments must be ids

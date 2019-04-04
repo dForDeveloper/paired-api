@@ -3,26 +3,38 @@ const { User, Pairing } = require('../db/schema');
 const resolvers = {
   Query: {
     getUser: async (_, { name }) => {
-      console.log('name', name);
-      const [match] = await User.find({ name }).exec();
-      return match;
+      return await User.findOne({ name }).exec();
     },
     getUsers: async () => {
       return await User.find({}).exec();
     },
     getPairings: async () => {
-      return await Pairing.find({}).exec();
+      return await Pairing.find({})
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     },
-    getAvailablePairings: async () => {
-      return await Pairing.find({ paireeID: null }).populate('user').exec();
+    getAvailablePairings: async (_, { filter: { module, program, date } }) => {
+      const availablePairings = await Pairing.find({ pairee: null, date })
+        .populate('pairer')
+        .exec();
+      return availablePairings.filter(pairing => {
+        const { pairer } = pairing;
+        return pairer.module === module && pairer.program === program;
+      });
     }
   },
   Mutation: {
-    createUser: async (_, args) => {
-      return await User.create(args)
+    createUser: async (_, { user }) => {
+      return await User.create(user)
     },
-    createPairing: async (_, args) => {
-      return await Pairing.create(args)
+    createPairing: async (_, { pairing }) => {
+      const newPairing = new Pairing(pairing);
+      await newPairing.save();
+      return await Pairing.findById(newPairing._id)
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     }
   }
 }
