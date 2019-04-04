@@ -2,10 +2,10 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
-    _id: String
-    name: String
-    module: Int
-    program: String
+    _id: String!
+    name: String!
+    module: Int!
+    program: String!
     skills: [String]
     interests: [String]
     pronouns: String
@@ -27,15 +27,15 @@ const typeDefs = gql`
   }
 
   type Pairing {
-    pairerID: ID
-    paireeID: ID
+    pairer: User!
+    pairee: User
     date: String!
     time: String!
   }
 
   input PairingInput {
-    pairerID: ID!
-    paireeID: ID
+    pairer: ID!
+    pairee: ID
     date: String!
     time: String!
   }
@@ -48,8 +48,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(name: String, module: Int, program: String): User!
-    createPairing(pairerID: ID, date: String, time: String): Pairing!
+    createUser(user: UserInput): User!
+    createPairing(pairing: PairingInput): Pairing!
   }
 `;
 
