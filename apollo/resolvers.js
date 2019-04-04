@@ -20,9 +20,11 @@ const resolvers = {
   Mutation: {
     createUser: async (_, args) => {
       return await User.create(args)
+    },
+    createPairing: async (_, args) => {
+      return await Pairing.create(args)
     }
   }
 }
-
 
 module.exports = resolvers;

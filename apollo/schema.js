@@ -27,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Pairing {
-    pairerID: User
+    pairerID: ID
     paireeID: ID
     date: String!
     time: String!
@@ -49,7 +49,7 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(name: String, module: Int, program: String): User!
-    createPairing(input: PairingInput!): Pairing!
+    createPairing(pairerID: ID, date: String, time: String): Pairing!
   }
 `;
 
