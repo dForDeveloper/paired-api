@@ -15,7 +15,7 @@ describe('resolvers', () => {
   });
 
   describe('Query', () => {
-    it('should return a single user with the matching name', async () => {
+    it('should get the user with the matching name from the db', async () => {
       const expected = await User.create({
         name: 'John',
         module: 1,
@@ -25,19 +25,19 @@ describe('resolvers', () => {
       expect(result._id).toEqual(expected._id);
     });
 
-    it('should get an array of all users', async () => {
+    it('should get an array of all users from the database', async () => {
       const expected = 4;
       const result = await Query.getUsers();
       expect(result).toHaveLength(expected);
     });
 
-    it('should get an array of all pairings', async () => {
+    it('should get an array of all pairings from the database', async () => {
       const expected = 6;
       const result = await Query.getPairings();
       expect(result).toHaveLength(expected);
     });
 
-    it('should get an array of all available pairings', async () => {
+    it('should get an array of available pairings from the db', async () => {
       const expected = 2;
       const filter = { program: "FE", module: 4, date: "Wed Apr 03 2019" };
       const result = await Query.getAvailablePairings(null, { filter });
@@ -46,6 +46,17 @@ describe('resolvers', () => {
   });
 
   describe('Mutation', () => {
+    it('should add a user to the database', async () => {
+      const usersBefore = await User.find({}).exec();
+      const user = {
+        name: 'John',
+        module: 1,
+        program: 'FE'
+      };
+      await Mutation.createUser(null, { user });
+      const usersAfter = await User.find({}).exec();
+      expect(usersAfter).toHaveLength(usersBefore.length + 1);
+    });
   });
 });
 
