@@ -1,4 +1,4 @@
-const resolvers = require('./resolvers');
+const { Query, Mutation } = require('./resolvers');
 const seedDB = require('../db/seeds');
 const mongoose = require('mongoose');
 const { User, Pairing } = require('../db/schema');
@@ -21,25 +21,31 @@ describe('resolvers', () => {
         module: 1,
         program: 'FE'
       });
-      const result = await resolvers.Query.getUser(null, { name: 'John' });
+      const result = await Query.getUser(null, { name: 'John' });
       expect(result._id).toEqual(expected._id);
     });
 
     it('should get an array of all users', async () => {
       const expected = 4;
-      const result = await resolvers.Query.getUsers();
+      const result = await Query.getUsers();
       expect(result).toHaveLength(expected);
     });
 
     it('should get an array of all pairings', async () => {
       const expected = 6;
-      const result = await resolvers.Query.getPairings();
-      expect(result).toHaveLength(6);
+      const result = await Query.getPairings();
+      expect(result).toHaveLength(expected);
+    });
+
+    it('should get an array of all available pairings', async () => {
+      const expected = 2;
+      const filter = { program: "FE", module: 4, date: "Wed Apr 03 2019" };
+      const result = await Query.getAvailablePairings(null, { filter });
+      expect(result).toHaveLength(expected);
     });
   });
 
   describe('Mutation', () => {
-
   });
 });
 
