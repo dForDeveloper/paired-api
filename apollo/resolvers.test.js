@@ -57,6 +57,24 @@ describe('resolvers', () => {
       const usersAfter = await User.find({}).exec();
       expect(usersAfter).toHaveLength(usersBefore.length + 1);
     });
+
+    it('should add a pairing to the database', async () => {
+      const user = {
+        name: 'John',
+        module: 1,
+        program: 'FE'
+      };
+      const { id } = await Mutation.createUser(null, { user });
+      const pairingsBefore = await Pairing.find({}).exec();
+      const pairing = {
+        pairer: id,
+        date: 'Wed Apr 03 2019',
+        time: 'morning'
+      }
+      await Mutation.createPairing(null, { pairing });
+      const pairingsAfter = await Pairing.find({}).exec();
+      expect(pairingsAfter).toHaveLength(pairingsBefore.length + 1);
+    });
   });
 });
 
