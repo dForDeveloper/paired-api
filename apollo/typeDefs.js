@@ -45,6 +45,7 @@ const typeDefs = gql`
     pairee: User
     date: String!
     time: String!
+    notes: String
   }
 
   input CreatePairingInput {
@@ -52,6 +53,7 @@ const typeDefs = gql`
     pairee: ID
     date: String!
     time: String!
+    notes: String
   }
 
   input UpdatePairingInput {
@@ -60,6 +62,7 @@ const typeDefs = gql`
     pairee: ID!
     date: String
     time: String
+    notes: String
   }
 
   input PairingFilter {

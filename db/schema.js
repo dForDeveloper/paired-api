@@ -32,7 +32,8 @@ const pairingSchema = new mongoose.Schema({
     ref: 'user'
   },
   date: String,
-  time: String
+  time: String,
+  notes: String
 });
 
 module.exports = {
