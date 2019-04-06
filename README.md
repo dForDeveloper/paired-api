@@ -158,7 +158,7 @@ Queries:
         
         // note:
         // the available fields this query are:
-        //   id, pairer, pairee, date, time
+        //   id, pairer, pairee, date, time, notes
         // the available fields for pairer and pairee are the same as getUser
 
 - getAvailablePairings(filter: Object) - returns an array of Pairing objects matching the filter
@@ -205,7 +205,52 @@ Queries:
         }
         
         // note:
+        // the required arguments are program, module, and date
         // the available fields for this query are the same as getPairings
+
+- getUserPairings(id: String) - gets all pairings where the user is either a pairer or pairee
+
+        // example query
+        {
+          getUserPairings(id: "5ca929750dbd7d527336849e") {
+            pairer {
+              name
+            }
+            pairee {
+              name
+            }
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "getUserPairings": [
+              {
+                "pairer": {
+                  "name": "Tiffany"
+                },
+                "pairee": {
+                  "name": "Jeo"
+                },
+                "date": "Wed Apr 03 2019",
+                "time": "afternoon"
+              },
+              {
+                "pairer": {
+                  "name": "Hillary"
+                },
+                "pairee": {
+                  "name": "Tiffany"
+                },
+                "date": "Fri Apr 05 2019",
+                "time": "morning"
+              }
+            ]
+          }
+        }
 
 Mutations:
 
@@ -288,3 +333,128 @@ Mutations:
         // note:
         // the required arguments are pairer, date, and time
         // the pairer and pairee arguments must be ids
+
+- updateUser(user: Object) - updates a user based the object passed in
+
+        // example mutation
+        mutation {
+          updateUser(
+            user: {
+              id: "5ca92b7f6a7f1153030b872b"
+              skills: ["react", "redux", "graphql"]
+              interests: ["super market sweep", "graphql"]
+            }
+          ) {
+            name
+            skills
+            interests
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "updateUser": {
+              "name": "Hillary",
+              "skills": [
+                "react",
+                "redux",
+                "graphql"
+              ],
+              "interests": [
+                "super market sweep",
+                "graphql"
+              ]
+            }
+          }
+        }
+        
+        // note:
+        // id is a required argument
+
+- updatePairing(pairing: Object) - updates a pairing based the object passed in
+
+        // example mutation
+        mutation {
+          updatePairing(
+            pairing: {
+              id: "5ca92b7f6a7f1153030b872d"
+              pairee: "5ca92b7f6a7f1153030b872b"
+              notes: "Please help with GraphQL"
+            }
+          ) {
+            pairer {
+              name
+            }
+            pairee {
+              name
+            }
+            notes
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "updatePairing": {
+              "pairer": {
+                "name": "Jeo"
+              },
+              "pairee": {
+                "name": "Hillary"
+              },
+              "notes": "Please help with GraphQL"
+            }
+          }
+        }
+        
+        // note:
+        // id and pairee are required arguments
+
+- deleteUser(id: String) - deletes the user whose ID matches the one passed in
+
+        // example mutation
+        mutation {
+          deleteUser(id: "5ca92b7f6a7f1153030b8728") {
+            name
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "deleteUser": {
+              "name": "Jeo"
+            }
+          }
+        }
+        
+        // note:
+        // id is a required argument
+        // the mutation returns the user before it gets deleted
+        // there must be at least one field requested
+
+- deletePairing(id: String) - deletes the pairing whose ID matches the one passed in
+
+        // example mutation
+        mutation {
+          deletePairing(id: "5ca92ec3c9624e53b4971959") {
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "deletePairing": {
+              "date": "Wed Apr 03 2019",
+              "time": "lunch"
+            }
+          }
+        }
+        
+        // note:
+        // id is a required argument
+        // the mutation returns the pairing before it gets deleted
+        // there must be at least one field requested
