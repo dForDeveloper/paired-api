@@ -84,6 +84,8 @@ const typeDefs = gql`
     createPairing(pairing: CreatePairingInput): Pairing!
     updateUser(user: UpdateUserInput): User
     updatePairing(pairing: UpdatePairingInput): Pairing
+    deleteUser(id: ID!): User
+    deletePairing(id: ID!): Pairing
   }
 `;
 

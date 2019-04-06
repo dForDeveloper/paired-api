@@ -107,6 +107,26 @@ describe('resolvers', () => {
       foundPairing = await Mutation.updatePairing(null, { pairing: updatedPairing });
       expect(foundPairing.pairee._id).toEqual(pairee._id);
     });
+
+    it('should remove a user from the database', async () => {
+      const usersBefore = await User.find({}).exec();
+      const { _id: id } = usersBefore[0]; 
+      const pairingsBefore = await Query.getUserPairings(null, { id });
+      await Mutation.deleteUser(null, { id });
+      const usersAfter = await User.find({}).exec();
+      const pairingsAfter = await Query.getUserPairings(null, { id });
+      expect(pairingsBefore).not.toHaveLength(0);
+      expect(pairingsAfter).toHaveLength(0);
+      expect(usersAfter).toHaveLength(usersBefore.length - 1);
+    });
+    
+    it('should remove a pairing from the database', async () => {
+      const pairingsBefore = await Pairing.find({}).exec();
+      const { _id: id } = pairingsBefore[0]; 
+      await Mutation.deletePairing(null, { id });
+      const pairingsAfter = await Pairing.find({}).exec();
+      expect(pairingsAfter).toHaveLength(pairingsBefore.length - 1);
+    });
   });
 });
 
