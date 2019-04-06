@@ -40,6 +40,11 @@ const resolvers = {
       return await User.findByIdAndUpdate(user._id, user, { new: true })
         .lean()
         .exec();
+    },
+    updatePairing: async (_, { pairing }) => {
+      return await Pairing.findByIdAndUpdate(pairing._id, pairing, { new: true })
+        .lean()
+        .exec();
     }
   }
 }

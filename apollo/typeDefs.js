@@ -57,6 +57,8 @@ const typeDefs = gql`
   type Mutation {
     createUser(user: UserInput): User!
     createPairing(pairing: PairingInput): Pairing!
+    updateUser(user: UserInput): User
+    updatePairing(pairing: PairingInput): Pairing
   }
 `;
 

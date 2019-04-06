@@ -86,6 +86,19 @@ describe('resolvers', () => {
       const result = await Mutation.updateUser(null, { user: updatedUser });
       expect(result).toEqual({ ...foundUser, ...updatedUser });
     });
+
+    it('should edit pairing info in database', async () => {
+      const pairer = await User.findOne({ name: "Jeo" }).lean().exec();
+      const pairee = await User.findOne({ name: "Hillary" }).lean().exec();
+
+      const foundPairing = await Pairing.findOne({ pairer: pairer._id }).lean().exec();
+      const updatedPairing = {
+        _id: foundPairing._id,
+        pairee: pairee._id
+      };
+      const result = await Mutation.updatePairing(null, { pairing: updatedPairing });
+      expect(result).toEqual({ ...foundPairing, ...updatedPairing });
+    });
   });
 });
 

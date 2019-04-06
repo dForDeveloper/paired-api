@@ -14,10 +14,6 @@ describe('typeDefs', () => {
     await seedDB(mongoURI);
   });
 
-  afterEach(function(done) {
-    return done();
-  });
-
   describe('Apollo Schema', () => {
     it('users should have attributes', async () => {
       const firstUser = await User.findOne();
@@ -42,7 +38,6 @@ describe('typeDefs', () => {
   });
 });
 
-afterAll(done => {
+afterAll(() => {
   mongoose.disconnect();
-  return done();
 });
