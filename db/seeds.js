@@ -99,7 +99,4 @@ const seedDB = async (uri) => {
   );
 };
 
-seedDB(mongoURI);
-mongoose.disconnect();
-
 module.exports = seedDB;

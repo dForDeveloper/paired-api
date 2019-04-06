@@ -14,10 +14,23 @@ const typeDefs = gql`
     image: String
   }
 
-  input UserInput {
+  input CreateUserInput {
     name: String!
     module: Int!
     program: String!
+    skills: [String]
+    interests: [String]
+    pronouns: String
+    slack: String
+    email: String
+    image: String
+  }
+
+  input UpdateUserInput {
+    id: ID!
+    name: String
+    module: Int
+    program: String
     skills: [String]
     interests: [String]
     pronouns: String
@@ -34,11 +47,19 @@ const typeDefs = gql`
     time: String!
   }
 
-  input PairingInput {
+  input CreatePairingInput {
     pairer: ID!
     pairee: ID
     date: String!
     time: String!
+  }
+
+  input UpdatePairingInput {
+    id: ID!
+    pairer: ID
+    pairee: ID!
+    date: String
+    time: String
   }
 
   input PairingFilter {
@@ -52,11 +73,14 @@ const typeDefs = gql`
     getUsers: [User]
     getPairings: [Pairing]
     getAvailablePairings(filter: PairingFilter): [Pairing]
+    getUserPairings(id: ID): [Pairing]
   }
 
   type Mutation {
-    createUser(user: UserInput): User!
-    createPairing(pairing: PairingInput): Pairing!
+    createUser(user: CreateUserInput): User!
+    createPairing(pairing: CreatePairingInput): Pairing!
+    updateUser(user: UpdateUserInput): User
+    updatePairing(pairing: UpdatePairingInput): Pairing
   }
 `;
 

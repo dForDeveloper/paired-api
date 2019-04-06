@@ -39,9 +39,16 @@ describe('resolvers', () => {
 
     it('should get an array of available pairings from the db', async () => {
       const expected = 2;
-      const filter = { program: "FE", module: 4, date: "Wed Apr 03 2019" };
+      const filter = { program: 'FE', module: 4, date: 'Wed Apr 03 2019' };
       const result = await Query.getAvailablePairings(null, { filter });
       expect(result).toHaveLength(expected);
+    });
+
+    it('should get pairings that match the user id from the db', async () => {
+      const expected = 4;
+      const id = await User.findOne({ name: 'Jeo' }).exec();
+      const result = await Query.getUserPairings(null, { id });
+      expect(result).toHaveLength(expected);      
     });
   });
 
@@ -70,10 +77,35 @@ describe('resolvers', () => {
         pairer: id,
         date: 'Wed Apr 03 2019',
         time: 'morning'
-      }
+      };
       await Mutation.createPairing(null, { pairing });
       const pairingsAfter = await Pairing.find({}).exec();
       expect(pairingsAfter).toHaveLength(pairingsBefore.length + 1);
+    });
+
+    it('should edit user info in database', async () => {
+      const foundUser = await User.findOne({ name: 'Jeo' }).exec();
+      const updatedUser = {
+        id: foundUser._id,
+        slack: 'robby',
+        module: 2
+      };
+      const result = await Mutation.updateUser(null, { user: updatedUser });
+      expect(result.slack).toEqual('robby');
+      expect(result.module).toEqual(2);
+    });
+
+    it('should edit pairing info in database', async () => {
+      const pairer = await User.findOne({ name: 'Jeo' }).exec();
+      const pairee = await User.findOne({ name: 'Hillary' }).exec();
+      let foundPairing = await Pairing.findOne({ pairer: pairer._id }).exec();
+      const updatedPairing = {
+        id: foundPairing._id,
+        pairee: pairee._id
+      };
+      expect(foundPairing.pairee).toEqual(null);
+      foundPairing = await Mutation.updatePairing(null, { pairing: updatedPairing });
+      expect(foundPairing.pairee._id).toEqual(pairee._id);
     });
   });
 });

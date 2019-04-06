@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "seed": "node db/seeds.js",
-    "test": "jest --passWithNoTests --detectOpenHandles --forceExit",
-    "testwatch": "jest --watch"
+    "seed": "node db/seedScript.js",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
+    "testwatch": "jest --watch --runInBand"
   },
   "keywords": [],
   "author": "",

@@ -22,16 +22,33 @@ const resolvers = {
         const { pairer } = pairing;
         return pairer.module === module && pairer.program === program;
       });
+    },
+    getUserPairings: async(_, { id }) => {
+      return await Pairing.find({ $or: [{ pairer: id }, { pairee: id }]})
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     }
   },
   Mutation: {
     createUser: async (_, { user }) => {
-      return await User.create(user)
+      return await User.create(user);
     },
     createPairing: async (_, { pairing }) => {
       const newPairing = new Pairing(pairing);
       await newPairing.save();
       return await Pairing.findById(newPairing._id)
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
+    },
+    updateUser: async (_, { user }) => {
+      const { id } = user;
+      return await User.findByIdAndUpdate(id, user, { new: true }).exec();
+    },
+    updatePairing: async (_, { pairing }) => {
+      const { id } = pairing;
+      return await Pairing.findByIdAndUpdate(id, pairing, { new: true })
         .populate('pairer')
         .populate('pairee')
         .exec();
