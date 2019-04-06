@@ -52,6 +52,16 @@ const resolvers = {
         .populate('pairer')
         .populate('pairee')
         .exec();
+    },
+    deleteUser: async (_, { id }) => {
+      await Pairing.deleteMany({ $or: [{ pairer: id }, { pairee: id }]});
+      return await User.findByIdAndDelete(id).exec();
+    },
+    deletePairing: async (_, { id }) => {
+      return await Pairing.findByIdAndDelete(id)
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     }
   }
 }
