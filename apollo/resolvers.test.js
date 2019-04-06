@@ -39,9 +39,16 @@ describe('resolvers', () => {
 
     it('should get an array of available pairings from the db', async () => {
       const expected = 2;
-      const filter = { program: "FE", module: 4, date: "Wed Apr 03 2019" };
+      const filter = { program: 'FE', module: 4, date: 'Wed Apr 03 2019' };
       const result = await Query.getAvailablePairings(null, { filter });
       expect(result).toHaveLength(expected);
+    });
+
+    it('should get pairings that match the user id from the db', async () => {
+      const expected = 4;
+      const id = await User.findOne({ name: 'Jeo' }).exec();
+      const result = await Query.getUserPairings(null, { id });
+      expect(result).toHaveLength(expected);      
     });
   });
 
@@ -77,27 +84,28 @@ describe('resolvers', () => {
     });
 
     it('should edit user info in database', async () => {
-      const foundUser = await User.findOne({ name: "Jeo" }).lean().exec();
+      const foundUser = await User.findOne({ name: 'Jeo' }).exec();
       const updatedUser = {
-        _id: foundUser._id,
-        slack: "robby",
+        id: foundUser._id,
+        slack: 'robby',
         module: 2
       };
       const result = await Mutation.updateUser(null, { user: updatedUser });
-      expect(result).toEqual({ ...foundUser, ...updatedUser });
+      expect(result.slack).toEqual('robby');
+      expect(result.module).toEqual(2);
     });
 
     it('should edit pairing info in database', async () => {
-      const pairer = await User.findOne({ name: "Jeo" }).lean().exec();
-      const pairee = await User.findOne({ name: "Hillary" }).lean().exec();
-
-      const foundPairing = await Pairing.findOne({ pairer: pairer._id }).lean().exec();
+      const pairer = await User.findOne({ name: 'Jeo' }).exec();
+      const pairee = await User.findOne({ name: 'Hillary' }).exec();
+      let foundPairing = await Pairing.findOne({ pairer: pairer._id }).exec();
       const updatedPairing = {
-        _id: foundPairing._id,
+        id: foundPairing._id,
         pairee: pairee._id
       };
-      const result = await Mutation.updatePairing(null, { pairing: updatedPairing });
-      expect(result).toEqual({ ...foundPairing, ...updatedPairing });
+      expect(foundPairing.pairee).toEqual(null);
+      foundPairing = await Mutation.updatePairing(null, { pairing: updatedPairing });
+      expect(foundPairing.pairee._id).toEqual(pairee._id);
     });
   });
 });

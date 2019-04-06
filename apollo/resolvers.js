@@ -22,11 +22,17 @@ const resolvers = {
         const { pairer } = pairing;
         return pairer.module === module && pairer.program === program;
       });
+    },
+    getUserPairings: async(_, { id }) => {
+      return await Pairing.find({ $or: [{ pairer: id }, { pairee: id }]})
+        .populate('pairer')
+        .populate('pairee')
+        .exec();
     }
   },
   Mutation: {
     createUser: async (_, { user }) => {
-      return await User.create(user)
+      return await User.create(user);
     },
     createPairing: async (_, { pairing }) => {
       const newPairing = new Pairing(pairing);
@@ -37,13 +43,14 @@ const resolvers = {
         .exec();
     },
     updateUser: async (_, { user }) => {
-      return await User.findByIdAndUpdate(user._id, user, { new: true })
-        .lean()
-        .exec();
+      const { id } = user;
+      return await User.findByIdAndUpdate(id, user, { new: true }).exec();
     },
     updatePairing: async (_, { pairing }) => {
-      return await Pairing.findByIdAndUpdate(pairing._id, pairing, { new: true })
-        .lean()
+      const { id } = pairing;
+      return await Pairing.findByIdAndUpdate(id, pairing, { new: true })
+        .populate('pairer')
+        .populate('pairee')
         .exec();
     }
   }
