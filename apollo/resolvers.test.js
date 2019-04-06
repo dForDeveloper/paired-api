@@ -70,10 +70,21 @@ describe('resolvers', () => {
         pairer: id,
         date: 'Wed Apr 03 2019',
         time: 'morning'
-      }
+      };
       await Mutation.createPairing(null, { pairing });
       const pairingsAfter = await Pairing.find({}).exec();
       expect(pairingsAfter).toHaveLength(pairingsBefore.length + 1);
+    });
+
+    it('should edit user info in database', async () => {
+      const foundUser = await User.findOne({ name: "Jeo" }).lean().exec();
+      const updatedUser = {
+        _id: foundUser._id,
+        slack: "robby",
+        module: 2
+      };
+      const result = await Mutation.updateUser(null, { user: updatedUser });
+      expect(result).toEqual({ ...foundUser, ...updatedUser });
     });
   });
 });

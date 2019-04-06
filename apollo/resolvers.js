@@ -35,6 +35,11 @@ const resolvers = {
         .populate('pairer')
         .populate('pairee')
         .exec();
+    },
+    updateUser: async (_, { user }) => {
+      return await User.findByIdAndUpdate(user._id, user, { new: true })
+        .lean()
+        .exec();
     }
   }
 }
