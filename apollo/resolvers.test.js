@@ -11,7 +11,7 @@ beforeAll(async () => {
 
 describe('resolvers', () => {
   beforeEach(async () => {
-    await seedDB(mongoURI);
+    await seedDB(mongoURI, 'test');
   });
 
   describe('Query', () => {
