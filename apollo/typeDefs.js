@@ -24,6 +24,7 @@ const typeDefs = gql`
     slack: String
     email: String
     image: String
+    firebaseID: ID!
   }
 
   input UpdateUserInput {
@@ -72,7 +73,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getUser(name: String): User
+    getUser(id: ID!): User
     getUsers: [User]
     getPairings: [Pairing]
     getAvailablePairings(filter: PairingFilter): [Pairing]

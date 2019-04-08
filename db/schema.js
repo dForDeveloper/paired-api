@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
   pronouns: String,
   slack: String,
   email: String,
-  image: String
+  image: String,
+  firebaseID: String
 });
 
 const pairingSchema = new mongoose.Schema({
