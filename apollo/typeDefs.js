@@ -74,6 +74,7 @@ const typeDefs = gql`
 
   type Query {
     getUser(id: ID!): User
+    getUserByFirebaseID(id: String!): User
     getUsers: [User]
     getPairings: [Pairing]
     getAvailablePairings(filter: PairingFilter): [Pairing]

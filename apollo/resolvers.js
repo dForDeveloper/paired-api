@@ -5,6 +5,9 @@ const resolvers = {
     getUser: async (_, { id }) => {
       return await User.findById(id).exec();
     },
+    getUserByFirebaseID: async (_, { id }) => {
+      return await User.findOne({ firebaseID: id }).exec();
+    },
     getUsers: async () => {
       return await User.find({}).exec();
     },
