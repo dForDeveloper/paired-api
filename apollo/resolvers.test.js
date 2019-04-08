@@ -46,7 +46,7 @@ describe('resolvers', () => {
 
     it('should get pairings that match the user id from the db', async () => {
       const expected = 4;
-      const id = await User.findOne({ name: 'Jeo' }).exec();
+      const id = await User.findOne({ name: 'Jeo D' }).exec();
       const result = await Query.getUserPairings(null, { id });
       expect(result).toHaveLength(expected);      
     });
@@ -84,7 +84,7 @@ describe('resolvers', () => {
     });
 
     it('should edit user info in database', async () => {
-      const foundUser = await User.findOne({ name: 'Jeo' }).exec();
+      const foundUser = await User.findOne({ name: 'Jeo D' }).exec();
       const updatedUser = {
         id: foundUser._id,
         slack: 'robby',
@@ -96,8 +96,8 @@ describe('resolvers', () => {
     });
 
     it('should edit pairing info in database', async () => {
-      const pairer = await User.findOne({ name: 'Jeo' }).exec();
-      const pairee = await User.findOne({ name: 'Hillary' }).exec();
+      const pairer = await User.findOne({ name: 'Jeo D' }).exec();
+      const pairee = await User.findOne({ name: 'Hill' }).exec();
       let foundPairing = await Pairing.findOne({ pairer: pairer._id }).exec();
       const updatedPairing = {
         id: foundPairing._id,

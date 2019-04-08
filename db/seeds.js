@@ -9,7 +9,7 @@ const seedDB = async (uri, env = 'dev') => {
   const users = await User.create(
     [
       {
-        name: 'Jeo',
+        name: 'Jeo D',
         pronouns: 'he/him',
         module: 4,
         program: 'FE',
@@ -17,10 +17,11 @@ const seedDB = async (uri, env = 'dev') => {
         interests: ['magic the gathering'],
         slack: '@jeo',
         email: 'jeo@gmail.com',
-        image: 'http://www.image.com/jeo.jpeg'
+        image: 'https://avatars1.githubusercontent.com/u/41239540?v=4',
+        firebaseID: 'huRo8RxBxYfphGaJHtdik4eXlbq2'
       },
       {
-        name: 'Aaron',
+        name: 'J Aaron Brooks-Roberts',
         pronouns: 'he/him',
         module: 4,
         program: 'BE',
@@ -28,7 +29,8 @@ const seedDB = async (uri, env = 'dev') => {
         interests: ['art'],
         slack: '@aaron',
         email: 'aaron@gmail.com',
-        image: 'http://www.image.com/aaron.jpeg'
+        image: 'https://avatars2.githubusercontent.com/u/40776966?v=4',
+        firebaseID: 'y4zY0CTSIsUoZld8WY6MPPsZ04n1'
       },
       {
         name: 'Tiffany',
@@ -39,10 +41,11 @@ const seedDB = async (uri, env = 'dev') => {
         interests: ['baking'],
         slack: '@tiffany',
         email: 'tiff@gmail.com',
-        image: 'http://www.image.com/tiffany.jpeg'
+        image: 'https://avatars1.githubusercontent.com/u/40586291?v=4',
+        firebaseID: '0iBiB9uqejS774Dppwr6HwpbJxX2'
       },
       {
-        name: 'Hillary',
+        name: 'Hill',
         pronouns: 'she/her',
         module: 4,
         program: 'FE',
@@ -50,12 +53,13 @@ const seedDB = async (uri, env = 'dev') => {
         interests: ['super market sweep'],
         slack: '@hillstew',
         email: 'hill@gmail.com',
-        image: 'http://www.image.com/hill.jpeg'
+        image: 'https://avatars3.githubusercontent.com/u/36748280?v=4',
+        firebaseID: 'ECpHPLOBqmOp1mcgygQBJfbJqbI2'
       }
     ]
   );
 
-  const devPairings = [
+    const devPairings = [
     {
       pairer: users[3]._id,
       pairee: users[0]._id,
