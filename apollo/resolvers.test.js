@@ -15,14 +15,14 @@ describe('resolvers', () => {
   });
 
   describe('Query', () => {
-    it('should get the user with the matching name from the db', async () => {
-      const expected = await User.create({
+    it('should get the user with the matching id from the db', async () => {
+      const newUser = await User.create({
         name: 'John',
         module: 1,
         program: 'FE'
       });
-      const result = await Query.getUser(null, { name: 'John' });
-      expect(result._id).toEqual(expected._id);
+      const result = await Query.getUser(null, { id: newUser._id });
+      expect(result.name).toEqual('John');
     });
 
     it('should get an array of all users from the database', async () => {

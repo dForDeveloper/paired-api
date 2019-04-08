@@ -2,8 +2,8 @@ const { User, Pairing } = require('../db/schema');
 
 const resolvers = {
   Query: {
-    getUser: async (_, { name }) => {
-      return await User.findOne({ name }).exec();
+    getUser: async (_, { id }) => {
+      return await User.findById(id).exec();
     },
     getUsers: async () => {
       return await User.find({}).exec();
