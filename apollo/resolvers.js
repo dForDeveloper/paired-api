@@ -65,6 +65,9 @@ const resolvers = {
         .populate('pairer')
         .populate('pairee')
         .exec();
+    },
+    createPairings: async (_, { pairings }) => {
+      return await Pairing.create(pairings);
     }
   }
 }

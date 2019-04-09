@@ -21,11 +21,11 @@ Please See FE:
 
 Queries:
 
-- getUser(name: String) - returns a User object
+- getUser(id: String) - returns a User object
 
         // example query
         {
-          getUser(name: "John") {
+          getUser(id: "5cad1dcfee07882ab05e904a") {
             name
             program
             module
@@ -36,9 +36,9 @@ Queries:
         {
           "data": {
             "getUser": {
-              "name": "John",
+              "name": "Jeo",
               "program": "FE",
-              "module": 2
+              "module": 4
             }
           }
         }
@@ -49,7 +49,7 @@ Queries:
         //
         // the "getUser" property name inside "data" can be changed like so:
         // {
-        //   whateverYouWant: getUser(name: "John") {
+        //   whateverYouWant: getUser(id: "5cad1dcfee07882ab05e904a") {
         //     name
         //     program
         //     module
@@ -59,9 +59,9 @@ Queries:
         // {
         //   "data": {
         //     "whateverYouWant": {
-        //       "name": "John",
+        //       "name": "Jeo",
         //       "program": "FE",
-        //       "module": 2
+        //       "module": 4
         //     }
         //   }
         // }
@@ -333,6 +333,50 @@ Mutations:
         // note:
         // the required arguments are pairer, date, and time
         // the pairer and pairee arguments must be ids
+
+- createPairings(pairings: Array) - saves multiple pairings to the database and returns an array of Pairing objects
+
+        // example mutation
+        mutation {
+          createPairings(
+            pairings: [
+              {
+                pairer: "5cad1dcfee07882ab05e904a"
+                date: "Mon Apr 29 2019"
+                time: "morning"
+              }
+              {
+                pairer: "5cad1dcfee07882ab05e904a"
+                date: "Mon Apr 29 2019"
+                time: "lunch"
+              }
+            ]
+          ) {
+            pairer
+            date
+            time
+          }
+        }
+        
+        // example response
+        {
+          "data": {
+            "createPairings": [
+              {
+                "pairer": "5cad1dcfee07882ab05e904a",
+                "date": "Mon Apr 29 2019",
+                "time": "morning",
+                "notes": null
+              },
+              {
+                "pairer": "5cad1dcfee07882ab05e904a",
+                "date": "Mon Apr 29 2019",
+                "time": "lunch",
+                "notes": null
+              }
+            ]
+          }
+        }
 
 - updateUser(user: Object) - updates a user based the object passed in
 
