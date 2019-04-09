@@ -127,6 +127,31 @@ describe('resolvers', () => {
       const pairingsAfter = await Pairing.find({}).exec();
       expect(pairingsAfter).toHaveLength(pairingsBefore.length - 1);
     });
+
+    it('should add multiple pairings to the database', async () => {
+      const user = {
+        name: 'John',
+        module: 1,
+        program: 'FE'
+      };
+      const { id } = await Mutation.createUser(null, { user });
+      const pairingsBefore = await Pairing.find({}).exec();
+      const pairings = [
+        {
+          pairer: id,
+          date: 'Tue Apr 09 2019',
+          time: 'morning'
+        },
+        {
+          pairer: id,
+          date: 'Tue Apr 09 2019',
+          time: 'lunch'
+        }
+      ];
+      await Mutation.createPairings(null, { pairings });
+      const pairingsAfter = await Pairing.find({}).exec();
+      expect(pairingsAfter).toHaveLength(pairingsBefore.length + 2);
+    });
   });
 });
 
