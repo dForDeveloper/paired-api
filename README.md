@@ -1,20 +1,24 @@
-## Paired-Api
-This is a Back End API built with GraphQL to access information about students and their availability to pair 
-with others accross campus. 
+# Paired API
+The Paired API is a GraphQL API connected to a MongoDB database built with Node and Express. It was developed for [Paired](https://paired-turing.firebaseapp.com/), a React application created to improve pair programming between [Turing](https://turing.io/) students throughout their seven month immersive program.
 
-### Deployment
-Our App is deployed at: [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
+### Front End
+* [GitHub Repository](https://github.com/hillstew/paired-fe)
+* [Live Site](https://paired-turing.firebaseapp.com/)
 
-### FRONT END LINK
-Please See FE:
-[https://github.com/hillstew/paired-fe](https://github.com/hillstew/paired-fe)
-
-### Built With
-* node [https://www.npmjs.com/](https://www.npmjs.com/)
-* express [https://www.npmjs.com/package/express](https://www.npmjs.com/package/express)
-* graphql [https://graphql.org/](https://graphql.org/)
-* mongodb [https://www.mongodb.com/](https://www.mongodb.com/)
-* mongoose [https://mongoosejs.com/](https://mongoosejs.com/docs/)
+### How to Contribute
+  - Install [MongoDB Community Server](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.12846195.534354243.1554936474-1998858508.1551673979) ([instructions for macOS](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.12846195.534354243.1554936474-1998858508.1551673979))
+  - Fork the repo
+  - Open your terminal
+  - `cd` to where you want the repo directory to be created
+  - Clone your fork down to your machine either
+    - with SSH: `git clone git@github.com:`*yourusername*`/paired-api.git`
+    - or with HTTPS: `git clone https://github.com/`*yourusername*`/paired-api.git`
+  - `cd paired-api`
+  - `npm install`
+  - `npm run seed`
+  - `npm run server`
+  - `git push` any changes up to your fork
+  - Make pull requests from your fork to the original repo
 
 ### Single Endpoint
 - [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
@@ -23,7 +27,8 @@ Please See FE:
 
 - getUser(id: String) - returns a User object
 
-        // example query
+        
+      // example query
         {
           getUser(id: "5cad1dcfee07882ab05e904a") {
             name
@@ -502,17 +507,29 @@ Please See FE:
         // id is a required argument
         // the mutation returns the pairing before it gets deleted
         // there must be at least one field requested
-        
-        ## Testing  
-Jest and Enzyme for front end and back end testing   
 
-### Original Assesment  
-[Cross Pollination](http://frontend.turing.io/projects/capstone.html) project from Turing School of Software & Design  
+
+
+### Built With
+* Node.js [https://nodejs.org/en/](https://nodejs.org/en/)
+* Express [https://expressjs.com/](https://expressjs.com/)
+* GraphQL [https://graphql.org/](https://graphql.org/)
+* Apollo Server [https://www.apollographql.com/docs/apollo-server/](https://www.apollographql.com/docs/apollo-server/)
+* MongoDB [https://www.mongodb.com/](https://www.mongodb.com/)
+* Mongoose [https://mongoosejs.com/](https://mongoosejs.com/docs/) 
+
+### Testing and Continuous Integration
+* Jest
+* Travis CI
 
 ### Contributors  
-**Front End Team**  
+* **Front End Team**  
 [Hillary Stewart](https://github.com/hillstew)  
-[Tiffany Bachmann](https://github.com/trbachmann)  
-**Back End Team**  
+[Tiffany Bachmann](https://github.com/trbachmann)
+
+* **Back End Team**  
 [Jeo D](https://github.com/dForDeveloper)  
-[Aaron Brooks Roberts](https://github.com/jaaronbr)  
+[Aaron Brooks Roberts](https://github.com/jaaronbr)
+
+### Original Assesment  
+[Cross Pollination](http://frontend.turing.io/projects/capstone.html) project from Turing School of Software & Design
