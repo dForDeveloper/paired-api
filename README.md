@@ -515,4 +515,4 @@ Jest and Enzyme for front end and back end testing
 [Tiffany Bachmann](https://github.com/trbachmann)  
 **Back End Team**  
 [Jeo D](https://github.com/dForDeveloper)  
-[Aaron Roberts](https://github.com/abroberts5)  
+[Aaron Brooks Roberts](https://github.com/jaaronbr)  
