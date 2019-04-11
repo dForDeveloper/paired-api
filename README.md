@@ -1,25 +1,25 @@
 ## Paired-Api
-This is an API built with GraphQL to access information about students and their availability to pair with others 
-accross campus. 
+This is a Back End API built with GraphQL to access information about students and their availability to pair 
+with others accross campus. 
 
-#### Deployment
+### Deployment
 Our App is deployed at: [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
 
-#### FRONT END LINK
+### FRONT END LINK
 Please See FE:
 [https://github.com/hillstew/paired-fe](https://github.com/hillstew/paired-fe)
 
-#### Built With
+### Built With
 * node [https://www.npmjs.com/](https://www.npmjs.com/)
 * express [https://www.npmjs.com/package/express](https://www.npmjs.com/package/express)
 * graphql [https://graphql.org/](https://graphql.org/)
 * mongodb [https://www.mongodb.com/](https://www.mongodb.com/)
 * mongoose [https://mongoosejs.com/](https://mongoosejs.com/docs/)
 
-#### Single Endpoint
+### Single Endpoint
 - [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
 
-Queries:
+#### Queries:
 
 - getUser(id: String) - returns a User object
 
@@ -252,7 +252,7 @@ Queries:
           }
         }
 
-Mutations:
+#### Mutations:
 
 - createUser(user: Object) - saves a user to the database and returns that User object
 
@@ -502,3 +502,17 @@ Mutations:
         // id is a required argument
         // the mutation returns the pairing before it gets deleted
         // there must be at least one field requested
+        
+        ## Testing  
+Jest and Enzyme for front end and back end testing   
+
+### Original Assesment  
+[Cross Pollination](http://frontend.turing.io/projects/capstone.html) project from Turing School of Software & Design  
+
+### Contributors  
+**Front End Team**  
+[Hillary Stewart](https://github.com/hillstew)  
+[Tiffany Bachmann](https://github.com/trbachmann)  
+**Back End Team**  
+[Jeo D](https://github.com/dForDeveloper)  
+[Aaron Roberts](https://github.com/abroberts5)  
