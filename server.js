@@ -17,9 +17,7 @@ app.set('PORT', process.env.PORT || 3001);
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
-  introspection: true,
-  playground: true
+  resolvers
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
