@@ -59,8 +59,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - getUser(id: ID!): User
 
   - example query
-        
-    ```json
+    ```
     {
       getUser(id: "5cad1dcfee07882ab05e904a") {
         name
@@ -88,7 +87,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - getUsers: [User]
 
   - example query
-    ```json
+    ```
     {
       getUsers {
         name
@@ -131,7 +130,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - getPairings: [Pairing]
 
   - example query
-    ```json
+    ```
     {
       getPairings {
         id
@@ -182,7 +181,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - getAvailablePairings(filter: PairingFilter): [Pairing]
 
   - example query
-  ```json
+  ```
   {
     getAvailablePairings(
       filter: { program: "FE", module: 4, date: "Wed Apr 03 2019" }
@@ -229,7 +228,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - getUserPairings(id: ID): [Pairing]
 
   - example query
-  ```json
+  ```
   {
     getUserPairings(id: "5ca929750dbd7d527336849e") {
       pairer {
@@ -279,7 +278,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - createUser(user: CreateUserInput): User!
 
   - example mutation
-  ```json
+  ```
   mutation {
     createUser(user: { name: "John", module: 2, program: "FE" }) {
       id
@@ -309,7 +308,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - createPairing(pairing: CreatePairingInput): Pairing!
 
   - example mutation
-  ```json
+  ```
   mutation {
     createPairing(
       pairing: {
@@ -358,7 +357,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - createPairings(pairings: [CreatePairingInput]): [UnpopulatedPairing]
 
   - example mutation
-  ```json
+  ```
   mutation {
     createPairings(
       pairings: [
@@ -406,7 +405,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - updateUser(user: UpdateUserInput): User
 
   - example mutation
-  ```json
+  ```
   mutation {
     updateUser(
       user: {
@@ -445,7 +444,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - updatePairing(pairing: UpdatePairingInput): Pairing
 
   - example mutation
-  ```json
+  ```
   mutation {
     updatePairing(
       pairing: {
@@ -485,7 +484,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - deleteUser(id: ID!): User
 
   - example mutation
-  ```json
+  ```
   mutation {
     deleteUser(id: "5ca92b7f6a7f1153030b8728") {
       name
@@ -507,7 +506,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
 - deletePairing(id: ID!): Pairing
 
   - example mutation
-  ```json
+  ```
   mutation {
     deletePairing(id: "5ca92ec3c9624e53b4971959") {
       date
