@@ -25,6 +25,20 @@ describe('resolvers', () => {
       expect(result.name).toEqual('John');
     });
 
+    it('should get the user with the matching firebase id', async () => {
+      const newUser = await User.create({
+        name: 'Bob',
+        module: 2,
+        program: 'BE',
+        firebaseID: 'abc123'
+      });
+      const result = await Query.getUserByFirebaseID(
+        null,
+        { id: newUser.firebaseID }
+      );
+      expect(result.name).toEqual('Bob');
+    });
+
     it('should get an array of all users from the database', async () => {
       const expected = 4;
       const result = await Query.getUsers();
