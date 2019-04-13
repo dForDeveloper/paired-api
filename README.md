@@ -295,7 +295,7 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
   {
     "data": {
       "createUser": {
-        "id": "5ca56e87f1f10fa7acbe9544"
+        "id": "5ca56e87f1f10fa7acbe9544",
         "name": "John",
         "module": 2,
         "program": "FE",
