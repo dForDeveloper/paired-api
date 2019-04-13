@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "seed": "node db/seedScript.js",
     "test": "jest --detectOpenHandles --forceExit --runInBand",
-    "testwatch": "jest --watch --runInBand"
+    "test:dev": "jest --watch --runInBand"
   },
   "keywords": [],
   "author": "",
