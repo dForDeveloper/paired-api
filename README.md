@@ -1,5 +1,5 @@
 # Paired API
-The Paired API is a GraphQL API connected to a MongoDB database built with Node and Express. It was developed for [Paired](https://paired-turing.firebaseapp.com/), a React application created to improve pair programming between [Turing](https://turing.io/) students throughout their seven month immersive program.
+The Paired API is a GraphQL API built with Node, Express, Apollo Server, and MongoDB. It serves as the back end for [Paired](https://paired-turing.firebaseapp.com/), a React application created to improve pair programming between [Turing](https://turing.io/) students throughout their seven-month immersive program.
 
 ### Front End
 * [GitHub Repository](https://github.com/hillstew/paired-fe)
@@ -7,7 +7,8 @@ The Paired API is a GraphQL API connected to a MongoDB database built with Node 
 
 ### How to Contribute
   - Install [MongoDB Community Server](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.12846195.534354243.1554936474-1998858508.1551673979) ([instructions for macOS](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/?_ga=2.12846195.534354243.1554936474-1998858508.1551673979))
-  - Fork the repo
+  - `mongod` to start MongoDB
+  - Fork this repo
   - Open your terminal
   - `cd` to where you want the repo directory to be created
   - Clone your fork down to your machine either
@@ -15,498 +16,517 @@ The Paired API is a GraphQL API connected to a MongoDB database built with Node 
     - or with HTTPS: `git clone https://github.com/`*yourusername*`/paired-api.git`
   - `cd paired-api`
   - `npm install`
-  - `npm run seed`
-  - `npm run server`
-  - `git push` any changes up to your fork
+  - `npm run seed` to seed the database
+  - `npm run test:dev` to run the test suite
+  - `npm run server` to start the server
+  - Go to [http://localhost:3001/graphql](http://localhost:3001/graphql) to use the GraphQL Playground
+  - Push changes up to your fork
   - Make pull requests from your fork to the original repo
 
-### Single Endpoint
-- [https://paired-api.herokuapp.com/graphql](https://paired-api.herokuapp.com/graphql)
+### Schema
+- User
+
+  | Field      | Data Type |
+  | ---------- |:---------:|
+  | id         | ID!       |
+  | name       | String!   |
+  | module     | String!   |
+  | program    | Int!      |
+  | skills     | [String]  |
+  | interests  | [String]  |
+  | pronouns   | String    |
+  | slack      | String    |
+  | email      | String    |
+  | image      | String    |
+
+
+- Pairing
+
+  | Field      | Data Type |
+  | ---------- |:---------:|
+  | id         | ID!       |
+  | pairer     | User!     |
+  | pairee     | User      |
+  | date       | String!   |
+  | times      | String!   |
+  | notes      | String    |
+
+### Endpoint
+- ### `https://paired-api.herokuapp.com/graphql`
 
 #### Queries:
 
-- getUser(id: String) - returns a User object
+- getUser(id: ID!): User
 
+  - example query
         
-      // example query
-        {
-          getUser(id: "5cad1dcfee07882ab05e904a") {
-            name
-            program
-            module
-          }
-        }
-        
-        // example response
-        {
-          "data": {
-            "getUser": {
-              "name": "Jeo",
-              "program": "FE",
-              "module": 4
-            }
-          }
-        }
-        
-        // notes:
-        // available fields for this query are:
-        //   id, name, program, module, skills, interests, pronouns, slack, email, image
-        //
-        // the "getUser" property name inside "data" can be changed like so:
-        // {
-        //   whateverYouWant: getUser(id: "5cad1dcfee07882ab05e904a") {
-        //     name
-        //     program
-        //     module
-        //   }
-        // }
-        // this returns:
-        // {
-        //   "data": {
-        //     "whateverYouWant": {
-        //       "name": "Jeo",
-        //       "program": "FE",
-        //       "module": 4
-        //     }
-        //   }
-        // }
+    ```json
+    {
+      getUser(id: "5cad1dcfee07882ab05e904a") {
+        name
+        program
+        module
+      }
+    }
+    ```
 
-- getUsers - returns an array of all User objects
+  - example response
+    ```json
+    {
+      "data": {
+        "getUser": {
+          "name": "Jeo",
+          "program": "FE",
+          "module": 4
+        }
+      }
+    }
+    ```
 
-        // example query
-        {
-          getUsers {
-            name
-        		program
-        		module
-          }
-        }
- 
-![image](https://user-images.githubusercontent.com/40776966/55576363-62105500-56ce-11e9-8a52-5807b034df68.png)
-        
-        // example response
-        {
-          "data": {
-            "user": [
-              {
-                "name": "Jeo",
-                "program": "FE",
-                "module": 4
-              },
-              {
-                "name": "Tiffany",
-                "program": "FE",
-                "module": 4
-              },
-              {
-                "name": "Aaron",
-                "program": "BE",
-                "module": 4
-              },
-              {
-                "name": "Hillary",
-                "program": "FE",
-                "module": 4
-              }
-        		]
-        	}
-        }
-        
-        // note:
-        // the available fields for this query are the same for getUser
-        
-- getPairings - returns an array of all Pairing objects
+  ![getUser query](https://user-images.githubusercontent.com/41239540/56085698-bb7e2f80-5e04-11e9-987d-0083e7e03bd4.png)
 
-        // example query
-        {
-          getPairings {
-            id
-            pairer {
-              name
-            }
-            pairee {
-              name
-            }
-            date
-            time
-          }
-        }
-        
-        // example response
-        {
-          "data": {
-            "getPairings": [
-              {
-                "id": "5ca56d0d4a515ca7339852b3",
-                "pairer": {
-                  "name": "Jeo"
-                },
-                "pairee": null,
-                "date": "Wed Apr 03 2019",
-                "time": "lunch"
-              },
-              {
-                "id": "5ca56d0d4a515ca7339852b5",
-                "pairer": {
-                  "name": "Tiffany"
-                },
-                "pairee": {
-                  "name": "Jeo"
-                },
-                "date": "Wed Apr 03 2019",
-                "time": "afternoon"
-              },
-        			...
-        		]
-        	}
-        }
-        
-        // note:
-        // the available fields this query are:
-        //   id, pairer, pairee, date, time, notes
-        // the available fields for pairer and pairee are the same as getUser
+- getUsers: [User]
 
-- getAvailablePairings(filter: Object) - returns an array of Pairing objects matching the filter
-
-        // example query
-        {
-          getAvailablePairings(
-            filter: { program: "FE", module: 4, date: "Wed Apr 03 2019" }
-          ) {
-            pairer {
-              name
-              module
-              program
-            }
-            date
-            time
-          }
-        }
+  - example query
+    ```json
+    {
+      getUsers {
+        name
+        program
+        module
+      }
+    }
+    ```
         
-        // example response
-        {
-          "data": {
-            "getAvailablePairings": [
-              {
-                "pairer": {
-                  "name": "Jeo",
-                  "module": 4,
-                  "program": "FE"
-                },
-                "date": "Wed Apr 03 2019",
-                "time": "lunch"
-              },
-              {
-                "pairer": {
-                  "name": "Hillary",
-                  "module": 4,
-                  "program": "FE"
-                },
-                "date": "Wed Apr 03 2019",
-                "time": "morning"
-              }
-            ]
+  - example response
+    ```json
+    {
+      "data": {
+        "user": [
+          {
+            "name": "Jeo",
+            "program": "FE",
+            "module": 4
+          },
+          {
+            "name": "Tiffany",
+            "program": "FE",
+            "module": 4
+          },
+          {
+            "name": "Aaron",
+            "program": "BE",
+            "module": 4
+          },
+          {
+            "name": "Hillary",
+            "program": "FE",
+            "module": 4
           }
-        }
+        ]
+      }
+    }
+    ```
         
-        // note:
-        // the required arguments are program, module, and date
-        // the available fields for this query are the same as getPairings
+- getPairings: [Pairing]
 
-- getUserPairings(id: String) - gets all pairings where the user is either a pairer or pairee
-
-        // example query
-        {
-          getUserPairings(id: "5ca929750dbd7d527336849e") {
-            pairer {
-              name
-            }
-            pairee {
-              name
-            }
-            date
-            time
-          }
+  - example query
+    ```json
+    {
+      getPairings {
+        id
+        pairer {
+          name
         }
+        pairee {
+          name
+        }
+        date
+        time
+      }
+    }
+    ```
+    
+  - example response
+    ```json
+    {
+      "data": {
+        "getPairings": [
+          {
+            "id": "5ca56d0d4a515ca7339852b3",
+            "pairer": {
+              "name": "Jeo"
+            },
+            "pairee": null,
+            "date": "Wed Apr 03 2019",
+            "time": "lunch"
+          },
+          {
+            "id": "5ca56d0d4a515ca7339852b5",
+            "pairer": {
+              "name": "Tiffany"
+            },
+            "pairee": {
+              "name": "Jeo"
+            },
+            "date": "Wed Apr 03 2019",
+            "time": "afternoon"
+          },
+          ...
+        ]
+      }
+    }
+    ```
+
+
+- getAvailablePairings(filter: PairingFilter): [Pairing]
+
+  - example query
+  ```json
+  {
+    getAvailablePairings(
+      filter: { program: "FE", module: 4, date: "Wed Apr 03 2019" }
+    ) {
+      pairer {
+        name
+        module
+        program
+      }
+      date
+      time
+    }
+  }
+  ```
         
-        // example response
+  - example response
+  ```json
+  {
+    "data": {
+      "getAvailablePairings": [
         {
-          "data": {
-            "getUserPairings": [
-              {
-                "pairer": {
-                  "name": "Tiffany"
-                },
-                "pairee": {
-                  "name": "Jeo"
-                },
-                "date": "Wed Apr 03 2019",
-                "time": "afternoon"
-              },
-              {
-                "pairer": {
-                  "name": "Hillary"
-                },
-                "pairee": {
-                  "name": "Tiffany"
-                },
-                "date": "Fri Apr 05 2019",
-                "time": "morning"
-              }
-            ]
-          }
+          "pairer": {
+            "name": "Jeo",
+            "module": 4,
+            "program": "FE"
+          },
+          "date": "Wed Apr 03 2019",
+          "time": "lunch"
+        },
+        {
+          "pairer": {
+            "name": "Hillary",
+            "module": 4,
+            "program": "FE"
+          },
+          "date": "Wed Apr 03 2019",
+          "time": "morning"
         }
+      ]
+    }
+  }
+  ```
+
+- getUserPairings(id: ID): [Pairing]
+
+  - example query
+  ```json
+  {
+    getUserPairings(id: "5ca929750dbd7d527336849e") {
+      pairer {
+        name
+      }
+      pairee {
+        name
+      }
+      date
+      time
+    }
+  }
+  ```
+        
+  - example response
+  ```json
+  {
+    "data": {
+      "getUserPairings": [
+        {
+          "pairer": {
+            "name": "Tiffany"
+          },
+          "pairee": {
+            "name": "Jeo"
+          },
+          "date": "Wed Apr 03 2019",
+          "time": "afternoon"
+        },
+        {
+          "pairer": {
+            "name": "Hillary"
+          },
+          "pairee": {
+            "name": "Tiffany"
+          },
+          "date": "Fri Apr 05 2019",
+          "time": "morning"
+        }
+      ]
+    }
+  }
+  ```
 
 #### Mutations:
 
-- createUser(user: Object) - saves a user to the database and returns that User object
+- createUser(user: CreateUserInput): User!
 
-        // example mutation
-        mutation {
-          createUser(user: { name: "John", module: 2, program: "FE" }) {
-            id
-            name
-            module
-            program
-            email
-          }
-        }
+  - example mutation
+  ```json
+  mutation {
+    createUser(user: { name: "John", module: 2, program: "FE" }) {
+      id
+      name
+      module
+      program
+      email
+    }
+  }
+  ```
         
-        // example response
+  - example response
+  ```json
+  {
+    "data": {
+      "createUser": {
+        "id": "5ca56e87f1f10fa7acbe9544"
+        "name": "John",
+        "module": 2,
+        "program": "FE",
+        "email": null
+      }
+    }
+  }
+  ```
+
+- createPairing(pairing: CreatePairingInput): Pairing!
+
+  - example mutation
+  ```json
+  mutation {
+    createPairing(
+      pairing: {
+        pairer: "5ca56e87f1f10fa7acbe9544"
+        pairee: 5
+        date: "Fri Apr 05 2019"
+        time: "lunch"
+      }
+    ) {
+      pairer {
+        name
+        module
+      }
+      pairee {
+        name
+        module
+        program
+      }
+      date
+      time
+    }
+  }
+  ```
+        
+  - example response
+  ```json
+  {
+    "data": {
+      "createPairing": {
+        "pairer": {
+          "name": "John",
+          "module": 2
+        },
+        "pairee": {
+          "name": "Alice",
+          "module": 1,
+          "program": "BE"
+        },
+        "date": "Fri Apr 05 2019",
+        "time": "lunch"
+      }
+    }
+  }
+  ```
+
+- createPairings(pairings: [CreatePairingInput]): [UnpopulatedPairing]
+
+  - example mutation
+  ```json
+  mutation {
+    createPairings(
+      pairings: [
         {
-          "data": {
-            "createUser": {
-        			"id": "5ca56e87f1f10fa7acbe9544"
-              "name": "John",
-              "module": 2,
-              "program": "FE",
-        			"email": null
-            }
-          }
+          pairer: "5cad1dcfee07882ab05e904a"
+          date: "Mon Apr 29 2019"
+          time: "morning"
         }
-        
-        // note:
-        // the required arguments are name, module, and program
-        // the argument object can have any property a user normally has except for id
-        // this is because the id is assigned when the user is created
-
-- createPairing(pairing: Object) - saves a pairing to the database and returns that Pairing object
-
-        // example mutation
-        mutation {
-          createPairing(
-            pairing: {
-              pairer: "5ca56e87f1f10fa7acbe9544"
-              pairee: 5
-              date: "Fri Apr 05 2019"
-              time: "lunch"
-            }
-          ) {
-            pairer {
-              name
-              module
-            }
-            pairee {
-              name
-              module
-              program
-            }
-            date
-            time
-          }
-        }
-        
-        // example response
         {
-          "data": {
-            "createPairing": {
-              "pairer": {
-                "name": "John",
-                "module": 2
-              },
-              "pairee": {
-                "name": "Alice",
-                "module": 1,
-                "program": "BE"
-              },
-              "date": "Fri Apr 05 2019",
-              "time": "lunch"
-            }
-          }
+          pairer: "5cad1dcfee07882ab05e904a"
+          date: "Mon Apr 29 2019"
+          time: "lunch"
         }
+      ]
+    ) {
+      pairer
+      date
+      time
+    }
+  }
+  ```
         
-        // note:
-        // the required arguments are pairer, date, and time
-        // the pairer and pairee arguments must be ids
-
-- createPairings(pairings: Array) - saves multiple pairings to the database and returns an array of Pairing objects
-
-        // example mutation
-        mutation {
-          createPairings(
-            pairings: [
-              {
-                pairer: "5cad1dcfee07882ab05e904a"
-                date: "Mon Apr 29 2019"
-                time: "morning"
-              }
-              {
-                pairer: "5cad1dcfee07882ab05e904a"
-                date: "Mon Apr 29 2019"
-                time: "lunch"
-              }
-            ]
-          ) {
-            pairer
-            date
-            time
-          }
-        }
-        
-        // example response
+  - example response
+  ```json
+  {
+    "data": {
+      "createPairings": [
         {
-          "data": {
-            "createPairings": [
-              {
-                "pairer": "5cad1dcfee07882ab05e904a",
-                "date": "Mon Apr 29 2019",
-                "time": "morning",
-                "notes": null
-              },
-              {
-                "pairer": "5cad1dcfee07882ab05e904a",
-                "date": "Mon Apr 29 2019",
-                "time": "lunch",
-                "notes": null
-              }
-            ]
-          }
-        }
-
-- updateUser(user: Object) - updates a user based the object passed in
-
-        // example mutation
-        mutation {
-          updateUser(
-            user: {
-              id: "5ca92b7f6a7f1153030b872b"
-              skills: ["react", "redux", "graphql"]
-              interests: ["super market sweep", "graphql"]
-            }
-          ) {
-            name
-            skills
-            interests
-          }
-        }
-        
-        // example response
+          "pairer": "5cad1dcfee07882ab05e904a",
+          "date": "Mon Apr 29 2019",
+          "time": "morning",
+          "notes": null
+        },
         {
-          "data": {
-            "updateUser": {
-              "name": "Hillary",
-              "skills": [
-                "react",
-                "redux",
-                "graphql"
-              ],
-              "interests": [
-                "super market sweep",
-                "graphql"
-              ]
-            }
-          }
+          "pairer": "5cad1dcfee07882ab05e904a",
+          "date": "Mon Apr 29 2019",
+          "time": "lunch",
+          "notes": null
         }
-        
-        // note:
-        // id is a required argument
+      ]
+    }
+  }
+  ```
 
-- updatePairing(pairing: Object) - updates a pairing based the object passed in
+- updateUser(user: UpdateUserInput): User
 
-        // example mutation
-        mutation {
-          updatePairing(
-            pairing: {
-              id: "5ca92b7f6a7f1153030b872d"
-              pairee: "5ca92b7f6a7f1153030b872b"
-              notes: "Please help with GraphQL"
-            }
-          ) {
-            pairer {
-              name
-            }
-            pairee {
-              name
-            }
-            notes
-          }
-        }
+  - example mutation
+  ```json
+  mutation {
+    updateUser(
+      user: {
+        id: "5ca92b7f6a7f1153030b872b"
+        skills: ["react", "redux", "graphql"]
+        interests: ["super market sweep", "graphql"]
+      }
+    ) {
+      name
+      skills
+      interests
+    }
+  }
+  ```
         
-        // example response
-        {
-          "data": {
-            "updatePairing": {
-              "pairer": {
-                "name": "Jeo"
-              },
-              "pairee": {
-                "name": "Hillary"
-              },
-              "notes": "Please help with GraphQL"
-            }
-          }
-        }
-        
-        // note:
-        // id and pairee are required arguments
+  - example response
+  ```json
+  {
+    "data": {
+      "updateUser": {
+        "name": "Hillary",
+        "skills": [
+          "react",
+          "redux",
+          "graphql"
+        ],
+        "interests": [
+          "super market sweep",
+          "graphql"
+        ]
+      }
+    }
+  }
+  ```
 
-- deleteUser(id: String) - deletes the user whose ID matches the one passed in
+- updatePairing(pairing: UpdatePairingInput): Pairing
 
-        // example mutation
-        mutation {
-          deleteUser(id: "5ca92b7f6a7f1153030b8728") {
-            name
-          }
-        }
+  - example mutation
+  ```json
+  mutation {
+    updatePairing(
+      pairing: {
+        id: "5ca92b7f6a7f1153030b872d"
+        pairee: "5ca92b7f6a7f1153030b872b"
+        notes: "Please help with GraphQL"
+      }
+    ) {
+      pairer {
+        name
+      }
+      pairee {
+        name
+      }
+      notes
+    }
+  }
+  ```
         
-        // example response
-        {
-          "data": {
-            "deleteUser": {
-              "name": "Jeo"
-            }
-          }
-        }
-        
-        // note:
-        // id is a required argument
-        // the mutation returns the user before it gets deleted
-        // there must be at least one field requested
+  - example response
+  ```json
+  {
+    "data": {
+      "updatePairing": {
+        "pairer": {
+          "name": "Jeo"
+        },
+        "pairee": {
+          "name": "Hillary"
+        },
+        "notes": "Please help with GraphQL"
+      }
+    }
+  }
+  ```
 
-- deletePairing(id: String) - deletes the pairing whose ID matches the one passed in
+- deleteUser(id: ID!): User
 
-        // example mutation
-        mutation {
-          deletePairing(id: "5ca92ec3c9624e53b4971959") {
-            date
-            time
-          }
-        }
+  - example mutation
+  ```json
+  mutation {
+    deleteUser(id: "5ca92b7f6a7f1153030b8728") {
+      name
+    }
+  }
+  ```
         
-        // example response
-        {
-          "data": {
-            "deletePairing": {
-              "date": "Wed Apr 03 2019",
-              "time": "lunch"
-            }
-          }
-        }
+  - example response
+  ```json
+  {
+    "data": {
+      "deleteUser": {
+        "name": "Jeo"
+      }
+    }
+  }
+  ```
+
+- deletePairing(id: ID!): Pairing
+
+  - example mutation
+  ```json
+  mutation {
+    deletePairing(id: "5ca92ec3c9624e53b4971959") {
+      date
+      time
+    }
+  }
+  ```
         
-        // note:
-        // id is a required argument
-        // the mutation returns the pairing before it gets deleted
-        // there must be at least one field requested
+  - example response
+  ```json
+  {
+    "data": {
+      "deletePairing": {
+        "date": "Wed Apr 03 2019",
+        "time": "lunch"
+      }
+    }
+  }
+  ```
 
 
 
@@ -530,6 +550,3 @@ The Paired API is a GraphQL API connected to a MongoDB database built with Node 
 * **Back End Team**  
 [Jeo D](https://github.com/dForDeveloper)  
 [Aaron Brooks Roberts](https://github.com/jaaronbr)
-
-### Original Assesment  
-[Cross Pollination](http://frontend.turing.io/projects/capstone.html) project from Turing School of Software & Design
