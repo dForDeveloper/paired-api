@@ -58,6 +58,15 @@ const typeDefs = gql`
     notes: String
   }
 
+  type DeletedPairing {
+    id: ID
+    pairer: ID
+    pairee: ID
+    date: String
+    time: String
+    notes: String
+  }
+
   input CreatePairingInput {
     pairer: ID!
     pairee: ID
@@ -97,6 +106,7 @@ const typeDefs = gql`
     updatePairing(pairing: UpdatePairingInput): Pairing
     deleteUser(id: ID!): User
     deletePairing(id: ID!): Pairing
+    deletePairings(id: ID!): DeletedPairing
     createPairings(pairings: [CreatePairingInput]): [UnpopulatedPairing]
   }
 `;

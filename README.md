@@ -527,6 +527,30 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
   }
   ```
 
+- deletePairings(id: ID!): DeletedPairing
+
+  - example mutation
+  ```
+  mutation {
+    deletePairings(id: "5cc88756a3ac3b35ffd45d2d") {
+      date
+      time
+    }
+  }
+  ```
+        
+  - example response
+  ```json
+  {
+    "data": {
+      "deletePairings": {
+        "date": null,
+        "time": null
+      }
+    }
+  }
+  ```
+
 
 
 ### Built With

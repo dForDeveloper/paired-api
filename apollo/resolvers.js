@@ -27,7 +27,7 @@ const resolvers = {
       });
     },
     getUserPairings: async(_, { id }) => {
-      return await Pairing.find({ $or: [{ pairer: id }, { pairee: id }]})
+      return await Pairing.find({ $or: [{ pairer: id }, { pairee: id }] })
         .populate('pairer')
         .populate('pairee')
         .exec();
@@ -57,7 +57,7 @@ const resolvers = {
         .exec();
     },
     deleteUser: async (_, { id }) => {
-      await Pairing.deleteMany({ $or: [{ pairer: id }, { pairee: id }]});
+      await Pairing.deleteMany({ $or: [{ pairer: id }, { pairee: id }] });
       return await User.findByIdAndDelete(id).exec();
     },
     deletePairing: async (_, { id }) => {
@@ -65,6 +65,9 @@ const resolvers = {
         .populate('pairer')
         .populate('pairee')
         .exec();
+    },
+    deletePairings: async (_, { id }) => {
+      return await Pairing.deleteMany({ $and: [{ pairer: id }, { pairee: null }] });
     },
     createPairings: async (_, { pairings }) => {
       return await Pairing.create(pairings);

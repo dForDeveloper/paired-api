@@ -142,6 +142,16 @@ describe('resolvers', () => {
       expect(pairingsAfter).toHaveLength(pairingsBefore.length - 1);
     });
 
+    it('should remove multiple pairings from the database', async () => {
+      const users = await User.find({}).exec();
+      const { _id: id } = users[0]; 
+      const pairingsBefore = await Pairing.find({ $and: [{ pairer: id }, { pairee: null }] }).exec();
+      await Mutation.deletePairings(null, { id });
+      const pairingsAfter = await Pairing.find({ $and: [{ pairer: id }, { pairee: null }] }).exec();
+      expect(pairingsBefore.length).not.toEqual(0);
+      expect(pairingsAfter.length).toEqual(0);
+    });
+
     it('should add multiple pairings to the database', async () => {
       const user = {
         name: 'John',
