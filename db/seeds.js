@@ -63,181 +63,181 @@ const seedDB = async (uri, env = 'dev') => {
     {
       pairer: users[3]._id,
       pairee: users[0]._id,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'morning'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'lunch'
     },
     {
       pairer: users[1]._id,
       pairee: users[3]._id,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'afternoon'
     },
     {
       pairer: users[2]._id,
       pairee: users[1]._id,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'morning'
     },
     {
       pairer: users[1]._id,
       pairee: users[0]._id,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'lunch'
     },
     {
       pairer: users[2]._id,
       pairee: null,
-      date: 'Mon Apr 15 2019',
+      date: 'Mon May 6 2019',
       time: 'afternoon'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'morning'
     },
     {
       pairer: users[0]._id,
       pairee: users[3]._id,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'lunch'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'afternoon'
     },
     {
       pairer: users[1]._id,
       pairee: users[2]._id,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'morning'
     },
     {
       pairer: users[2]._id,
       pairee: null,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'lunch'
     },
     {
       pairer: users[0]._id,
       pairee: users[2]._id,
-      date: 'Tue Apr 16 2019',
+      date: 'Tue May 7 2019',
       time: 'afternoon'
     },
     {
       pairer: users[2]._id,
       pairee: users[3]._id,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'morning'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'lunch'
     },
     {
       pairer: users[3]._id,
       pairee: users[0]._id,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'afternoon'
     },
     {
       pairer: users[1]._id,
       pairee: null,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'morning'
     },
     {
       pairer: users[0]._id,
       pairee: null,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'lunch'
     },
     {
       pairer: users[1]._id,
       pairee: users[2]._id,
-      date: 'Wed Apr 17 2019',
+      date: 'Wed May 8 2019',
       time: 'afternoon'
     },
     {
       pairer: users[1]._id,
       pairee: users[3]._id,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'morning'
     },
     {
       pairer: users[0]._id,
       pairee: users[3]._id,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'lunch'
     },
     {
       pairer: users[2]._id,
       pairee: users[3]._id,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'afternoon'
     },
     {
       pairer: users[2]._id,
       pairee: null,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'morning'
     },
     {
       pairer: users[2]._id,
       pairee: null,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'lunch'
     },
     {
       pairer: users[1]._id,
       pairee: null,
-      date: 'Thu Apr 18 2019',
+      date: 'Thu May 9 2019',
       time: 'afternoon'
     },
     {
       pairer: users[3]._id,
       pairee: users[1]._id,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'morning'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'lunch'
     },
     {
       pairer: users[3]._id,
       pairee: null,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'afternoon'
     },
     {
       pairer: users[2]._id,
       pairee: users[0]._id,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'morning'
     },
     {
       pairer: users[1]._id,
       pairee: users[2]._id,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'lunch'
     },
     {
       pairer: users[0]._id,
       pairee: null,
-      date: 'Fri Apr 19 2019',
+      date: 'Fri May 10 2019',
       time: 'afternoon'
     }
   ];
