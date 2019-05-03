@@ -11,6 +11,9 @@ const resolvers = {
     getUsers: async () => {
       return await User.find({}).exec();
     },
+    getPairing: async (_, { id }) => {
+      return await Pairing.findById(id).populate('pairer').exec();
+    },
     getPairings: async () => {
       return await Pairing.find({})
         .populate('pairer')
