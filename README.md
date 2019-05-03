@@ -177,6 +177,54 @@ The Paired API is a GraphQL API built with Node, Express, Apollo Server, and Mon
     }
     ```
 
+- getPairing(id: ID!): Pairing
+
+  - example query
+  ```
+  {
+    getPairing(id: "5ccba783eb113c2e2ef3692f") {
+      pairer {
+        name
+        module
+        program
+        id
+        pronouns
+        skills
+        slack
+        image
+      }
+      date
+      time
+      id
+    }
+  }
+  ```
+        
+  - example response
+  ```json
+  {
+    "data": {
+      "getPairing": {
+        "pairer": {
+          "name": "Hill",
+          "module": 4,
+          "program": "FE",
+          "id": "5ccba783eb113c2e2ef3692d",
+          "pronouns": "she/her",
+          "skills": [
+            "react",
+            "redux"
+          ],
+          "slack": "@hillstew",
+          "image": "https://avatars3.githubusercontent.com/u/36748280?v=4"
+        },
+        "date": "Mon May 06 2019",
+        "time": "lunch",
+        "id": "5ccba783eb113c2e2ef3692f"
+      }
+    }
+  }
+  ```
 
 - getAvailablePairings(filter: PairingFilter): [Pairing]
 
