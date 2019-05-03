@@ -45,6 +45,25 @@ describe('resolvers', () => {
       expect(result).toHaveLength(expected);
     });
 
+    it('should get the pairing with the matching id', async () => {
+      const newUser = await User.create({
+        name: 'Bob',
+        module: 2,
+        program: 'BE',
+        firebaseID: 'abc123'
+      });
+      const newPairing = await Pairing.create({
+        pairer: newUser._id,
+        date: 'Thu May 02 2019',
+        time: 'afternoon',
+        notes: 'This is a new pairing.'
+      });
+      const result = await Query.getPairing(null, { id: newPairing._id });
+      expect(result.date).toEqual('Thu May 02 2019');
+      expect(result.time).toEqual('afternoon');
+      expect(result.notes).toEqual('This is a new pairing.');
+    });
+
     it('should get an array of all pairings from the database', async () => {
       const expected = 6;
       const result = await Query.getPairings();
