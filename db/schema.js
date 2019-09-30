@@ -37,7 +37,29 @@ const pairingSchema = new mongoose.Schema({
   notes: String
 });
 
+const groupSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  location: String,
+  lead: {
+    type: String, 
+    required: true
+  },
+  coLead: [String],
+  category: { 
+    type: String,
+    required: true
+  },
+  attendees: [String], 
+  agenda: String,
+  date: String,
+  time: [String]
+});
+
 module.exports = {
   User: mongoose.model('user', userSchema),
-  Pairing: mongoose.model('pairing', pairingSchema)
+  Pairing: mongoose.model('pairing', pairingSchema),
+  Group: mongoose.model('group', groupSchema)
 };
