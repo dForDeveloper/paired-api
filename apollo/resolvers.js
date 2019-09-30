@@ -1,4 +1,4 @@
-const { User, Pairing } = require('../db/schema');
+const { User, Pairing, Group } = require('../db/schema');
 
 const resolvers = {
   Query: {
@@ -10,6 +10,9 @@ const resolvers = {
     },
     getUsers: async () => {
       return await User.find({}).exec();
+    },
+    getGroups: async () => {
+      return await Group.find({}).exec();
     },
     getPairing: async (_, { id }) => {
       return await Pairing.findById(id).populate('pairer').exec();
