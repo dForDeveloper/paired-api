@@ -27,6 +27,31 @@ const typeDefs = gql`
     firebaseID: ID!
   }
 
+  type Group {
+    id: ID!
+    name: String!
+    location: String
+    lead: String!
+    coLead: [String]
+    category: String!
+    attendees: [String]
+    agenda: String
+    date: String
+    time: [String]
+  }
+
+  input CreateGroupInput {
+    name: String!
+    location: String
+    lead: String!
+    coLead: [String]
+    type: String!
+    attendees: [String]
+    agenda: String
+    date: String
+    time: [String]
+  }
+
   input UpdateUserInput {
     id: ID!
     name: String
@@ -98,6 +123,7 @@ const typeDefs = gql`
     getPairings: [Pairing]
     getAvailablePairings(filter: PairingFilter): [Pairing]
     getUserPairings(id: ID): [Pairing]
+    getGroups: [Group]
   }
 
   type Mutation {
@@ -109,6 +135,7 @@ const typeDefs = gql`
     deletePairing(id: ID!): Pairing
     deletePairings(id: ID!): DeletedPairing
     createPairings(pairings: [CreatePairingInput]): [UnpopulatedPairing]
+    createGroup(group: CreateGroupInput): Group!
   }
 `;
 
