@@ -1,4 +1,4 @@
-const { User, Pairing } = require('./schema');
+const { User, Pairing, Group } = require('./schema');
 const mongoose = require('mongoose');
 
 const seedDB = async (uri, env = 'dev') => {
@@ -280,6 +280,33 @@ const seedDB = async (uri, env = 'dev') => {
       time: 'morning'
     },
   ];
+
+  const groups = await Group.create(
+    [
+      {
+        name: 'React Router',
+        location: 'The Vault',
+        lead: 'Djavan',
+        coLead: ['Hillary'],
+        category: 'React',
+        attendees: ['Eric', 'Alyssa'],
+        agenda: 'Learn how to use React Router.',
+        date: 'Mon Sep 23 2019',
+        time: ['8:00 a', '8:50 a']
+      },
+      {
+        name: 'React Native',
+        location: 'The Vault',
+        lead: 'Colby',
+        coLead: ['Kylie'],
+        category: 'React',
+        attendees: ['Hillary', 'Djavan'],
+        agenda: 'Learn how to use React Native.',
+        date: 'Mon Sep 23 2019',
+        time: ['8:00 p', '8:50 p']
+      }
+    ]
+  )
 
   if (env === 'test') {
     await Pairing.create(testPairings);
