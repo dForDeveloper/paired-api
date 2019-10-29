@@ -22,7 +22,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
-    "mongoose": "^5.4.21"
+    "mongoose": "^5.7.5"
   },
   "jest": {
     "testEnvironment": "node"
