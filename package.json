@@ -21,8 +21,10 @@
     "apollo-server-express": "^2.4.8",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "graphql": "^14.2.1",
-    "mongoose": "^5.4.21"
+    "fsevents": "^2.0.0",
+    "graphql": "^14.0.0",
+    "mongoose": "^5.4.21",
+    "node-gyp": "^6.1.0"
   },
   "jest": {
     "testEnvironment": "node"
